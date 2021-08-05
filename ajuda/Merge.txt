@@ -1,0 +1,42 @@
+Passo 1: Rebase
+PW
+dentro do submodulo:
+git pull origin master
+na pasta do pw:
+git pull origin develop
+*se conflitos:
+ git add .
+ git merge --continue
+git push origin PW-XXXX
+
+ 
+
+HB
+dentro do submodulo:
+git pull origin PW-XXXX (para ficar com a mesma hash, não puxar da master na segunda vez, puxar da própria branch do submodulo, que agora estará atualizada)
+na pasta do hb:
+git pull origin develop
+*se conflitos:
+ git add .
+ git merge --continue
+git push origin PW-XXXX
+
+ 
+
+Rebase pronto. Testar.
+
+ 
+
+Passo 2: Atualizar a hash
+para ambos os projetos (HB e PW)
+dentro do submodulo:
+git checkout master
+git pull origin master
+dentro do projeto principal:
+git add .
+git commit
+git push origin HEAD
+
+ 
+
+Conferir a hash. Fazer o Merge.

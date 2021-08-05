@@ -1,0 +1,201 @@
+para nvoa tarefa:
+
+$ git checkout develop
+$ git pull origin develop
+$ git submodule update
+
+fazer nova branch no profitweb e no submodules
+
+git checkout -b PW-xxxx
+cd app/v2/submodules
+git checkout -b PW-xxxx
+
+
+
+
+criar nova feature:
+
+GeneralImports:
+
++ import WatchHtml from './app/v2/src/DialogModule/WatchModule/view/Watch.html';
++ import WatchContentHtml from './app/v2/src/DialogModule/WatchContentModule/view/WatchContent.html';
+...
++ [WindowTypeEnum.WATCH.code]: WatchHtml,  // no meio, depois do marketreport
++ [DialogContentTypeEnum.WATCH]: WatchContentHtml,  // no final, depois do routingaccounts
+
+LicenseManager.js:  (app/v1/GenericModule/main)
+
++ // depois do routing accounts
+[WindowTypeEnum.WATCH.code]: {
+            type: WindowTypeEnum.WATCH.code,
+            title: WindowTypeEnum.WATCH.name,
+            newControl: true,
+            limitDialogs: 1,
+            buttons: [],
+            strIconKey: '$productLogoIcon',
+        },
+...
++ [WindowTypeEnum.WATCH.code]: this._dialogsDefinition[WindowTypeEnum.WATCH.code], // depois do routing accounts
+
+
+NMenuMixing.js
+
++ const objWatch = this.objDialogs[WindowTypeEnum.WATCH.code]; // setupMenuTools
+...
++ this.arrToolsItems.push({ ...objWatch, strIcon: null }); // depois do FAST_QUOTATION
+
+DialogConstructorEnum.js
+
++ import WatchControl from '../../submodules/DialogModule/controls/WatchModule/WatchControl'; //final
+...
++ [WindowTypeEnum.WATCH.code]: WatchControl, //final
+
+app\v2\submodules\DialogModule\controls\WindowTypeEnum.js
+
++ WATCH: new WindowTypeEnum(44, 'menu.tools.watch'),
+
+app\v2\src\DialogModule\WatchContentModule\view\WatchContent.html
+
++ <div class="watch">{{strClock}}</div>
+
+app\v2\src\DialogModule\WatchModule\view\Watch.html
+
++ <div class="watch-content"></div>
+
+app\v2\src\DialogModule\WatchModule\view\Watch.scss
+
+.nelo-dialog--44 {
+    width: 156px;
+    height: 69px;
+    min-width: 156px !important;
+    min-height: 69px !important;
+    padding: 0;
+    margin: 0;
+
+    .nelo-dialog-content {
+        min-width: 0 !important;
+        min-height: 0 !important;
+    }
+}
+
+.watch-content {
+    margin: auto;
+    color: #e6e6e6;
+    font-size: 2em;
+}
+
+WatchContent.js
+
+import Vue from 'vue';
+import DateTimeService from '../../../SharedModule/services/DateTimeService.js';
+import DialogContentControl from '../DialogContentControl.js';
+import DialogContentTypeEnum from '../DialogContentTypeEnum.js';
+
+class WatchContent extends DialogContentControl {
+    static get nType() {
+        return DialogContentTypeEnum.WATCH;
+    }
+
+    constructor(...args) {
+        super(...args);
+        this.strContentIdPrefix = 'watch-content';
+        this.bOneAsset = true;
+    }
+
+    /**
+     * Callback executado após inicialização do conteúdo
+     * @description
+     * 26/07/2021 jpeixoto PW-4221 Criado relógio
+     */
+
+    onInit() {
+        this.vueInst = new Vue({
+            el: `#${this.strContentId}`,
+            data() {
+                return {
+                    strClock: '',
+                };
+            },
+            mounted() {
+                this.strClock = DateTimeService.strServerTime;
+                setInterval(() => {
+                    this.strClock = DateTimeService.strServerTime;
+                }, 1000);
+            },
+        });
+        this.$content = this.vueInst.$el;
+    }
+}
+
+export default WatchContent;
+
+WatchControl.js
+
+import DialogControl from '../DialogControl.js';
+import WindowTypeEnum from '../WindowTypeEnum.js';
+import WatchContent from '../../contents/WatchContentModule/WatchContent';
+
+class WatchControl extends DialogControl {
+    static get nType() {
+        return WindowTypeEnum.WATCH.code;
+    }
+
+    /**
+     * @param {Function} closeCallback
+     * @description
+     * 26/07/2021 jpeixoto PW-4221 Criado relógio
+     */
+    constructor(closeCallback) {
+        super(closeCallback);
+        this.strNameForStatistics = 'Watch';
+        this.strTitle = WindowTypeEnum.WATCH.name;
+        this.bHasTitle = true;
+        this.bIsResizable = true;
+        this.objTickerFormConfig.bOpenOnKeydown = false;
+        const that = this;
+        this.arrContentInitializers = [
+            {
+                Constructor: WatchContent,
+                className: 'WatchContent',
+                get $container() {
+                    return that.$dialog.querySelector('.watch-content');
+                },
+            },
+        ];
+    }
+}
+
+export default WatchControl;
+/+
+
+en-us.json
+
++ "watch": "Watch", // menu.items
+...
++ "watch": "Watch", // menu.tools
+...
++ "watch": {
+        "title": "Watch",
+        "menuName": "Watch"
+    }, // acima de fastQuotation title quick quote...
+
+pt-br.json
+
++ "watch": "Relógio", // menu.items
+...
++ "watch": "Relógio", // menu.tools
+...
++ "watch": {
+        "title": "Relógio",
+        "menuName": "Relógio"
+    }, // acima de fastQuotation title cotação rapida...
+
+assets/scss/style.css
+
+// linha 125
+
++ @import '../../app/v2/src/DialogModule/WatchContentModule/view/WatchContent.scss';
++ @import '../../app/v2/src/DialogModule/WatchModule/view/Watch.scss';
+
+
+306x186 (ou 306 x 161)

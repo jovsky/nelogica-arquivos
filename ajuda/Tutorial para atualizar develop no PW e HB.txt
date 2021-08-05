@@ -1,0 +1,39 @@
+atualizar a develop no profit web:
+
+no submodulo: git pull origin master
+conflitos: exclamações no controle de codigo fonte
+resolver conflitos em cada arquivo com exclamação
+git status para ver os conflitos resolvidos
+git add .
+git merge --continue --> fecha o arquivo
+
+no projeto principal
+git pull origin develop - pegar atualizaçoes da develop (pode ser feito de qualquer branch)
+vai dar conflitos, fazer a mesma coisa ^
+* observação para conflito do submodulo: se tiver commits diferentes no arquivo 'submodules', então ao fazer o 'git add .' irá atualizar a referencia do submodulo para o meu commit
+git add .
+git merge --continue
+
+ver se está rodando o projeto
+fazer 'git push origin PW-xxxx' nos 2 remotos (projeto e submodulo)
+
+
+agora no homebroker:
+
+no projeto principal:
+git checkout develop
+git pull origin develop
+git checkout -b PW-xxxx   para criar a branch se ainda n existir
+
+vai no submodulo, baixar e checkout para branch xxxx
+git fetch origin pw-xxxx
+git checkout pw-xxxx
+
+volta pro projeto principal:
+git add e commit
+testa o hb
+git push origin pw-xxxx
+
+
+
+

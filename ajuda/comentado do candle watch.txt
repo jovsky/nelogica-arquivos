@@ -1,0 +1,8 @@
+// const nSafetyMarginSeconds = 2000;
+        // if (
+        //     Math.abs(this.objDateTimes.dtLastQuotationExecuted.getTime() - this.objDateTimes.dtReceivedDateTime.getTime()) <
+        //     nSafetyMarginSeconds
+        // ) {
+        //     return true;
+        // }
+        // return this.objDateTimes.dtLastQuotationExecuted.getTime() > this.objDateTimes.dtProjectedCandleOpened.getTime();
