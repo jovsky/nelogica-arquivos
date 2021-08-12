@@ -38,7 +38,7 @@ LicenseManager.js:  (app/v1/GenericModule/main)
 + [WindowTypeEnum.WATCH.code]: this._dialogsDefinition[WindowTypeEnum.WATCH.code], // depois do routing accounts
 
 
-NMenuMixing.js
+NMenuMixin.js
 
 + const objWatch = this.objDialogs[WindowTypeEnum.WATCH.code]; // setupMenuTools
 ...
@@ -180,7 +180,7 @@ en-us.json
     }, // acima de fastQuotation title quick quote...
 
 pt-br.json
-
+s
 + "watch": "Relógio", // menu.items
 ...
 + "watch": "Relógio", // menu.tools

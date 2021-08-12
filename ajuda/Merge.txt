@@ -1,42 +1,64 @@
 Passo 1: Rebase
-PW
-dentro do submodulo:
-git pull origin master
-na pasta do pw:
-git pull origin develop
-*se conflitos:
- git add .
- git merge --continue
-git push origin PW-XXXX
 
- 
+PW
+dentro do submodulo: 
+$ git checkout PW-XXXX
+$ git pull origin master
+$ git push origin PW-XXXX
+na pasta do pw:
+$ git checkout PW-XXXX
+$ git pull origin develop
+* se conflitos:
+  $ git add .
+  $ git merge --continue
+$ git push origin PW-XXXX
+
+
+
 
 HB
 dentro do submodulo:
-git pull origin PW-XXXX (para ficar com a mesma hash, não puxar da master na segunda vez, puxar da própria branch do submodulo, que agora estará atualizada)
+$ git branch (a branch PW-XXXX existe?)
+* não:
+  $ git fetch origin PW-XXXX
+* sim:
+  $ git checkout PW-XXXX
+  $ git pull origin PW-XXXX
 na pasta do hb:
-git pull origin develop
-*se conflitos:
- git add .
- git merge --continue
-git push origin PW-XXXX
+$ git checkout (-b) PW-XXXX
+$ git pull origin develop
+* se conflitos:
+ $ git add .
+ $ git merge --continue
+$ git push origin PW-XXXX
 
  
 
 Rebase pronto. Testar.
 
  
+DEPOIS DO MERGE DO SUBMODULO:
 
 Passo 2: Atualizar a hash
 para ambos os projetos (HB e PW)
 dentro do submodulo:
-git checkout master
-git pull origin master
-dentro do projeto principal:
-git add .
-git commit
-git push origin HEAD
+$ git checkout master
+$ git pull origin master
+dentro do projeto principal: (na PW-XXXX)
+$ git add .
+$ git commit
+$ git push origin HEAD
 
  
 
 Conferir a hash. Fazer o Merge.
+
+
+/////
+
+formulario do merge no Jira:
+
+Exemplo: Relogio do Candle
+COMPLEXIDADE - LOW pq é uma janela bem simples, não envolve muitos dados, nem roteamento, poucas funcionalidades
+RELEVANCIA - MEDIUM ta ok pq ta entre as janelas mais usadas no ProfitDesktop
+IMPACTO - VERY LOW pq é uma ferramenta nova, afeta só essa janela e um bug que entre nela dificilmente vai ter um impacto significativo

@@ -10,7 +10,7 @@ git merge --continue --> fecha o arquivo
 no projeto principal
 git pull origin develop - pegar atualizaçoes da develop (pode ser feito de qualquer branch)
 vai dar conflitos, fazer a mesma coisa ^
-* observação para conflito do submodulo: se tiver commits diferentes no arquivo 'submodules', então ao fazer o 'git add .' irá atualizar a referencia do submodulo para o meu commit
+* observação para conflito do submodulo: se tiver commits diferentes no arquivo 'submodules', então ao fazer o 'git add .' irá atualizar a referencia do submodulo para o meu commit:
 git add .
 git merge --continue
 
